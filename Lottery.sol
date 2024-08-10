@@ -26,6 +26,10 @@ contract Lottery{
         players.push(payable(msg.sender));
     }
 
+//this is not the right way to generate a random number because 
+//1) it leads to concensus issue meaning every node will give different random no. resulting in clash among all nodes.
+//2) miner manipulation means any hacker can easily predict the outcome and increase his chances.
+//using chainlink we can have a better approach but for now let's use it
     function random() private view returns(uint){
         return uint(sha256(abi.encodePacked(block.difficulty,block.timestamp,players)));
     }
